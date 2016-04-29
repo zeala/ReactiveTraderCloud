@@ -48,14 +48,14 @@ echo "Run ReactiveTrader containers"
 echo ""
 ./hive ${DOCKER_VERSION} ${TTY} do run devops/reactivetrader all id ${ID} configuration ${RELEASE}
 
-docker ps
+./hive docker cli ps
 
 # TEST
 echo "Giving some time for services to start"
 sleep 10
 ./hive ${DOCKER_VERSION} ${TTY} do run devops/reactivetrader test id ${ID} configuration ${RELEASE}
 
-docker ps
+./hive docker cli ps
 
 # STOP
 ./hive ${DOCKER_VERSION} ${TTY} do kill devops/reactivetrader all

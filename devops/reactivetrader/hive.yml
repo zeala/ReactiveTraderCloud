@@ -14,7 +14,6 @@ spec:
     - name: all
       actions:
         - run
-        - kill
         - kubernetes
       services:
         - web
@@ -25,6 +24,20 @@ spec:
         - referencedataread
         - tradeexecution
         - blotter
+        - web
+
+    - name: all
+      actions:
+        - kill
+      services:
+        - web
+        - pricing
+        - analytics
+        - referencedataread
+        - tradeexecution
+        - blotter
+        - broker
+        - populatedEventstore
 
     - name: test
       actions:
