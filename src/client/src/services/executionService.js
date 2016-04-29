@@ -57,4 +57,9 @@ export default class ExecutionService extends ServiceBase {
       }
     );
   }
+
+  openChartIQ(currencyPair, chartIQTimerHandler){
+    this._openFin.getChartIQInstance(null, null, chartIQTimerHandler);
+    this._openFin.viewChartIQ(currencyPair.symbol);
+  }
 }

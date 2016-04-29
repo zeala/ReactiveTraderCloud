@@ -41,6 +41,7 @@ export default class SpotTileModel extends ModelBase {
   pricingConnected:boolean;
   executionConnected:boolean;
   isTradeExecutionInFlight:boolean;
+  chartIQisOpening:boolean;
 
   constructor(modelId:string,
               currencyPair:CurrencyPair, // in a real system you'd take a specific state object, not just a piece of state (currencyPair) as we do here
@@ -73,6 +74,8 @@ export default class SpotTileModel extends ModelBase {
     this.executionConnected = false;
     this.isTradeExecutionInFlight = false;
     this._regionManagerHelper = new RegionManagerHelper(RegionNames.workspace, regionManager, this);
+
+    this.chartIQisOpening = false;
   }
 
   get hasNotification() {
@@ -97,6 +100,12 @@ export default class SpotTileModel extends ModelBase {
   _onPopOutTile() {
     this._log.info(`Popping out tile`);
     this._regionManagerHelper.popout(`${this.currencyPair.symbol} Spot`, 332, 155);
+  }
+
+  @observeEvent('openChartIQ')
+  _onOpenChartIQ(){
+    this._log.info(`Open ChartIQ`);
+    this._executionService.openChartIQ(this.currencyPair, this._startChartIQTimer.bind(this));
   }
 
   @observeEvent('tradeNotificationDismissed')
@@ -181,6 +190,7 @@ export default class SpotTileModel extends ModelBase {
     );
   }
 
+
   _subscribeToConnectionStatus() {
     let serviceStatusStream = Rx.Observable.combineLatest(
       this._pricingService.serviceStatusStream,
@@ -212,5 +222,10 @@ export default class SpotTileModel extends ModelBase {
           this.notification = new TextNotification('Pricing is unavailable');
         }
     }
+  }
+
+  _startChartIQTimer(){
+    this.chartIQisOpening = true;
+    this._schedulerService.async.scheduleFuture('', 2000, ()=> this.chartIQisOpening = false);
   }
 }

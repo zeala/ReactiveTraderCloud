@@ -28,6 +28,16 @@ export default class SpotTileView extends ViewBase {
     let spotDateClass = classnames('spot-tile__delivery', {'hide': model.hasNotification});
     let notification = this._tryCreateNotification();
     let priceComponents = this._createPriceComponents();
+    let showChartIQIcon = model._executionService._openFin.available;
+
+    const chartIQIconClassName = classnames(
+      {
+        'spot-tile__icon--hidden': !showChartIQIcon,
+        'glyphicon glyphicon-refresh spot-tile__icon--rotate': model.chartIQisOpening,
+        'spot-tile__icon--tearoff glyphicon glyphicon-stats': !model.chartIQisOpening
+      }
+    );
+
     const formattedDate = model.currentSpotPrice ? moment(model.currentSpotPrice.valueDate).format(SPOT_DATE_FORMAT) : '';
     const className = classnames(
       'spot-tile',
@@ -46,7 +56,9 @@ export default class SpotTileView extends ViewBase {
           <span className='spot-tile__stale-label'>Stale</span>
           <span className='spot-tile__symbol'>{model.tileTitle}</span>
           <span className='spot-tile__execution-label'>Executing</span>
-          <div className='popout__controls'>
+          <div className='spot-tile__popout-controls'>
+            <i className={chartIQIconClassName}
+              onClick={() => router.publishEvent(this.props.modelId, 'openChartIQ', {})}/>
             <i className='spot-tile__icon--tearoff glyphicon glyphicon-new-window'
                onClick={() => router.publishEvent(this.props.modelId, 'popOutTile', {})}/>
           </div>
