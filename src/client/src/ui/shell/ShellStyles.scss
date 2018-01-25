@@ -91,7 +91,7 @@
 
 .shell__workspace {
   flex-grow: 1;
-  height: $workspace-height;
+  height: auto;// $workspace-height;
   overflow-y: auto;
   overflow-x: hidden;
   width: $workspace-width;
@@ -103,10 +103,12 @@
   height: $blotter-height;
   overflow: hidden;
   order: 2;
+  box-sizing: border-box;
 }
 
 .shell__footer {
   height: $footer-height;
+  display: none;
 }
 
 .shell__button--reconnect {

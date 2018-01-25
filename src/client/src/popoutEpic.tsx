@@ -17,6 +17,7 @@ const generateView = (container) => {
 }
 
 function popoutWindowEpic(action$, store) {
+  console.log(' ----- popoutWindowEpick, action : ', action$);
   return action$.ofType(REGIONS_ACTIONS.REGION_OPEN_WINDOW)
     .map((action) => {
       const popoutService = getPopoutService(action.payload.openFin)

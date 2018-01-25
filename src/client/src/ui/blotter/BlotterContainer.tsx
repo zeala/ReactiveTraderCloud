@@ -19,27 +19,14 @@ class BlotterContainer extends React.Component<any, {}> {
 
   public render() {
     const trades = this.props.blotterService.trades
-    //const openFin = this.context.openFin
-    /*const blotterProps = {
-      trades: _.values(trades).reverse(),
-      isConnected: this.props.isConnected,
-      onPopoutClick: this.props.onPopoutClick(openFin),
-      canPopout: true,
-      size: this.props.size,
-    }*/
-    console.log(' ::: trades : ', trades);
-    const gridRows = []
-    if (trades) {
-      trades.forEach((trade) => {
-        gridRows.push(trades[trade])
-        console.log(' *** gridRows : ', gridRows);
-      });
-      console.log(' gridRows : ', gridRows);
-    }
-
+    const openFin = this.context.openFin
+    const gridRows =  _.values(trades).reverse()
     return (
       <div className="shell_workspace_blotter">
-        <AgGridBlotter rows={gridRows}/>
+        <AgGridBlotter
+          rows={gridRows}
+          onPopoutClick={this.props.onPopoutClick(openFin)}
+          canPopout={true}/>
       </div>
     )
   }
