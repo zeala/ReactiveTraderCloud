@@ -4,7 +4,8 @@ import sizeMe from 'react-sizeme'
 import { connect } from 'react-redux'
 import { blotterRegionsSettings } from './blotterOperations'
 import { openWindow, addRegion } from '../../regions/regionsOperations'
-import Blotter from './Blotter'
+//import Blotter from './Blotter'
+import AgGridBlotter from '../agGridBlotter/AgGridBlotter';
 
 class BlotterContainer extends React.Component<any, {}> {
 
@@ -18,18 +19,27 @@ class BlotterContainer extends React.Component<any, {}> {
 
   public render() {
     const trades = this.props.blotterService.trades
-    const openFin = this.context.openFin
-    const blotterProps = {
+    //const openFin = this.context.openFin
+    /*const blotterProps = {
       trades: _.values(trades).reverse(),
       isConnected: this.props.isConnected,
       onPopoutClick: this.props.onPopoutClick(openFin),
       canPopout: true,
       size: this.props.size,
+    }*/
+    console.log(' ::: trades : ', trades);
+    const gridRows = []
+    if (trades) {
+      trades.forEach((trade) => {
+        gridRows.push(trades[trade])
+        console.log(' *** gridRows : ', gridRows);
+      });
+      console.log(' gridRows : ', gridRows);
     }
 
     return (
       <div className="shell_workspace_blotter">
-        <Blotter {...blotterProps} />
+        <AgGridBlotter rows={gridRows}/>
       </div>
     )
   }
