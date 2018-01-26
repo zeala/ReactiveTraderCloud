@@ -1,24 +1,23 @@
-import * as React from 'react';
-import { AgGridReact } from 'ag-grid-react';
-import {COLUMN_DEFINITIONS} from "./agGridBlotterUtils";
-import './agGridBlotter.scss';
-import 'ag-grid/dist/styles/ag-grid.css';
-import 'ag-grid/dist/styles/ag-theme-blue.css';
-import 'ag-grid/dist/styles/ag-theme-dark.css';
-import '../../agGridEnterprise';
-import * as classNames from 'classnames';
+import * as React from 'react'
+import { AgGridReact } from 'ag-grid-react'
+import { COLUMN_DEFINITIONS } from './agGridBlotterUtils'
+import './agGridBlotter.scss'
+import 'ag-grid/dist/styles/ag-grid.css'
+import 'ag-grid/dist/styles/ag-theme-blue.css'
+import 'ag-grid/dist/styles/ag-theme-dark.css'
+import '../../agGridEnterprise'
+import * as classNames from 'classnames'
 
 interface AgGridBlotterProps {
-  rows: any[];
-  canPopout: boolean;
-  onPopoutClick: () => void;
+  rows: any[]
+  canPopout: boolean
+  onPopoutClick: () => void
 }
 
 export default class AgGridBlotter extends React.Component<AgGridBlotterProps, {}> {
 
   render () {
-    const containerClass = classNames('ag-theme-dark',
-      'agGridBlotter-container');
+    const containerClass = classNames('ag-theme-dark', 'agGridBlotter-container', 'rt-blotter')
     const newWindowClassName = classNames(
       'glyphicon glyphicon-new-window',
       {
@@ -37,7 +36,7 @@ export default class AgGridBlotter extends React.Component<AgGridBlotterProps, {
         enableColResize={true}
         enableSorting={true}
         enableRangeSelection={true}
-        enableStatusBar={true}/>
+        />
     </div>
   }
 }
