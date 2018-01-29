@@ -31,17 +31,14 @@ export const pricingServiceEpic = (pricingService$, openFin, referenceDataServic
 
   function stalePriceCheck(action$) {
     return pricingStream$(action$)
-      .mergeMap((symbols: Array<string>) => {
-        return Observable.from(symbols)
-          .mergeMap(symbol => pricingService$.getSpotPriceStream({ symbol })
-            .debounce(() => Observable.interval(PRICE_STALE_AFTER_X_IN_MS))
-            .map(stalePricing))
-      })
+      .mergeMap((symbols:Array<string>) => getCurrencyPairs(symbols, pricingService$))
+      .debounce(() => Observable.interval(PRICE_STALE_AFTER_X_IN_MS))
+      .map(stalePricing)
   }
 
   function getPrices(action$, store) {
     return pricingStream$(action$)
-      .mergeMap((symbols: Array<string>) => getCurrencyPairs(symbols, pricingService$))
+      .mergeMap((symbols: Array<string>) =>  getCurrencyPairs(symbols, pricingService$))
       .do( price => {
         const update = {...price, ratePrecision: referenceDataService.getCurrencyPair(price.symbol).ratePrecision }
         openFin.publishPrice(update)
