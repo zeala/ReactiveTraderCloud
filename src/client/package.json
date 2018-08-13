@@ -38,7 +38,9 @@
     "openfin": "openfin -c config/openfin/local.app.json -l",
     "openfin-build-installer": "node ./lib/downloadInstaller.js",
     "analyze": "source-map-explorer build/static/js/main.*",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "license": "MIT",
   "lint-staged": {
@@ -116,6 +118,12 @@
     "rxjs-compat": "^6.1.0",
     "rxjs-tslint-rules": "^4.1.1",
     "source-map-explorer": "^1.5.0",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "@storybook/react": "^3.4.10",
+    "@storybook/addon-actions": "^3.4.10",
+    "@storybook/addon-links": "^3.4.10",
+    "@storybook/addons": "^3.4.10",
+    "babel-core": "^6.26.3",
+    "babel-runtime": "^6.26.0"
   }
 }
